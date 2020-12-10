@@ -1,0 +1,56 @@
+body, html {
+  height: 100%;
+}
+
+.fly-margin-top {
+  margin-top: 10px;
+}
+
+.fly-margin-left {
+  margin-left: 10px;
+}
+
+.fly-margin-right {
+  margin-right: 10px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+
+.mask {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .4);
+  z-index: 2000;
+}
+
+.selected {
+  color: #1ABDE6;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+pre{padding: 10px 15px; margin: 10px 0; font-size: 12px; border-left: 6px solid #009688;  background-color: #f8f8f8; font-family: Courier New; overflow: auto;}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+    transform: scale(.5);
+  } 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
