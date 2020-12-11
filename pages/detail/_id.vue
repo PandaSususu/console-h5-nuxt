@@ -215,12 +215,12 @@
                 </div>
               </div>
             </div>
-            <ui-page
+            <!-- <ui-page
               :total="total"
               :size="limit"
               :current="current"
               @changePage="handleChange"
-            ></ui-page>
+            ></ui-page> -->
           </div>
           <validation-observer ref="observer" v-slot="{ validate }">
             <form class="layui-form layui-form-pane">
@@ -287,7 +287,7 @@
         </div>
         <div class="layui-col-md4">
           <vue-tips></vue-tips>
-          <vue-sign></vue-sign>
+          <!-- <vue-sign></vue-sign> -->
           <vue-hotlist></vue-hotlist>
           <vue-ads></vue-ads>
           <vue-links></vue-links>
@@ -307,7 +307,7 @@ import HotList from '~/components/sidebar/HotList'
 import Ads from '~/components/sidebar/Ads'
 import Links from '~/components/sidebar/Links'
 import Editor from '~/components/modules/editor/Index'
-import code from '~/plugins/code'
+import code from '~/mixins/code'
 // import Page from '@/components/modules/paging/Paging'
 // import { scrollToElem } from '@/utils/common'
 
@@ -361,194 +361,184 @@ export default {
       this._getDetails()
     },
   },
-  // methods: {
-  //   _getDetails() {
-  //     getDetail({ tid: this.tid }).then((res) => {
-  //       if (res.code === 10000) {
-  //         this.postInfo = res.data
-  //         this._getComments()
-  //       } else {
-  //         this.$alert(res.message)
-  //       }
-  //     })
-  //   },
-  //   getContent(val) {
-  //     this.content = val
-  //   },
-  //   async submit() {
-  //     if (!this.$store.state.isLogin) {
-  //       this.$pop('先登录才能发表评论哦', 'shake')
-  //       return
-  //     }
-  //     if (!this.isNormal()) {
-  //       return
-  //     }
-  //     if (!this.content.trim()) {
-  //       this.$alert('评论内容不能为空')
-  //       return
-  //     }
-  //     const isValid = await this.$refs.observer.validate()
-  //     if (!isValid) {
-  //       return
-  //     }
-  //     if (this.updateCid) {
-  //       updateComment({
-  //         cid: this.updateCid,
-  //         content: this.content,
-  //         sid: this.sid,
-  //         code: this.code,
-  //       }).then((res) => {
-  //         if (res.code === 10000) {
-  //           this.$pop(res.message)
-  //           const cindex = this.comments.findIndex((item) => {
-  //             return item._id === this.updateCid
-  //           })
-  //           this.comments[cindex].content = this.content
-  //           this.updateCid = ''
-  //           this.initEditor()
-  //         } else if (res.code === 9000) {
-  //           this.$refs.codefield.setErrors([res.message])
-  //         } else {
-  //           this.$alert(res.message)
-  //         }
-  //       })
-  //     } else {
-  //       postComment({
-  //         tid: this.postInfo._id,
-  //         content: this.content,
-  //         sid: this.sid,
-  //         code: this.code,
-  //       }).then((res) => {
-  //         if (res.code === 10000) {
-  //           this.$pop(res.message)
-  //           const userInfo = this.$store.state.userInfo
-  //           const user = {
-  //             name: userInfo.name,
-  //             pic: userInfo.pic,
-  //             isVip: userInfo.isVip,
-  //             _id: userInfo._id,
-  //           }
-  //           res.data.user = user
-  //           delete res.data.uid
-  //           if (this.current !== 1) {
-  //             this.current = 1
-  //             this.page = 0
-  //             this._getComments()
-  //           } else if (this.total >= this.limit) {
-  //             this.comments.unshift(res.data)
-  //             this.comments.pop()
-  //           } else {
-  //             this.comments.unshift(res.data)
-  //           }
-  //           scrollToElem('.post-comment', 500, 0)
-  //           this.initEditor()
-  //         } else if (res.code === 9000) {
-  //           this.$refs.codefield.setErrors([res.message])
-  //         } else {
-  //           this.$alert(res.message)
-  //         }
-  //       })
-  //     }
-  //   },
-  //   _getComments() {
-  //     return getComments({
-  //       tid: this.tid,
-  //       page: this.page,
-  //       limit: this.limit,
-  //     }).then((res) => {
-  //       if (res.code === 10000) {
-  //         this.comments = res.data.list
-  //         this.total = res.data.total
-  //       } else {
-  //         this.$alert(res.message)
-  //       }
-  //     })
-  //   },
-  //   async handleChange(pageNumber) {
-  //     this.current = pageNumber
-  //     this.page = pageNumber - 1
-  //     await this._getComments()
-  //     scrollToElem('.post-comment', 500, 0)
-  //   },
-  //   editComment(cid, content) {
-  //     this.content = content
-  //     scrollToElem('.layui-input-block', 500, 0)
-  //     document.getElementById('edit').focus()
-  //     this.updateCid = cid
-  //   },
-  //   deleteComment() {},
-  //   bestComment(commentItem) {
-  //     this.$confirm('你确定要采纳该评论为最佳答案吗？', () => {
-  //       setBest({
-  //         cid: commentItem._id,
-  //         tid: commentItem.tid,
-  //       }).then((res) => {
-  //         if (res.code === 10000) {
-  //           this.$pop(res.message)
-  //           this.postInfo.isEnd = '1'
-  //           commentItem.isBest = '1'
-  //         } else {
-  //           this.$alert(res.message)
-  //         }
-  //       })
-  //     })
-  //   },
-  //   handsComment(comment) {
-  //     if (this.userInfo) {
-  //       setHands({
-  //         cid: comment._id,
-  //       }).then((res) => {
-  //         if (res.code === 10000) {
-  //           if (comment.isHands === '1') {
-  //             comment.isHands = '0'
-  //             comment.hands--
-  //           } else {
-  //             comment.isHands = '1'
-  //             comment.hands++
-  //           }
-  //         } else {
-  //           this.$alert(res.message)
-  //         }
-  //       })
-  //     } else {
-  //       this.$pop('请先登录', 'shake')
-  //     }
-  //   },
-  //   setCollectPost() {
-  //     if (!this.userInfo) {
-  //       this.$pop('请先登录', 'shake')
-  //       return
-  //     }
-  //     collectPost(this.postInfo._id).then((res) => {
-  //       if (res.code === 10000) {
-  //         this.postInfo.isCollect = this.postInfo.isCollect === '1' ? '0' : '1'
-  //       } else {
-  //         this.$alert(res.message)
-  //       }
-  //     })
-  //   },
-  //   cancelUpdate() {
-  //     this.updateCid = ''
-  //     this.initComment()
-  //   },
-  //   initEditor() {
-  //     this.code = ''
-  //     this.content = ''
-  //     requestAnimationFrame(() => {
-  //       this.$refs.observer && this.$refs.observer.reset()
-  //     })
-  //   },
-  //   isNormal() {
-  //     if (this.userInfo.status === '1') {
-  //       this.$pop('该用户已被禁言', 'shake')
-  //       return false
-  //     } else if (this.userInfo.status === '2') {
-  //       this.$pop('该用户已被冻结', 'shake')
-  //       return false
-  //     }
-  //     return true
-  //   },
-  // },
+  methods: {
+    getContent(val) {
+      this.content = val
+    },
+    async submit() {
+      if (!this.$store.state.isLogin) {
+        this.$pop('先登录才能发表评论哦', 'shake')
+        return
+      }
+      if (!this.isNormal()) {
+        return
+      }
+      if (!this.content.trim()) {
+        this.$alert('评论内容不能为空')
+        return
+      }
+      const isValid = await this.$refs.observer.validate()
+      if (!isValid) {
+        return
+      }
+      if (this.updateCid) {
+        updateComment({
+          cid: this.updateCid,
+          content: this.content,
+          sid: this.sid,
+          code: this.code,
+        }).then((res) => {
+          if (res.code === 10000) {
+            this.$pop(res.message)
+            const cindex = this.comments.findIndex((item) => {
+              return item._id === this.updateCid
+            })
+            this.comments[cindex].content = this.content
+            this.updateCid = ''
+            this.initEditor()
+          } else if (res.code === 9000) {
+            this.$refs.codefield.setErrors([res.message])
+          } else {
+            this.$alert(res.message)
+          }
+        })
+      } else {
+        postComment({
+          tid: this.postInfo._id,
+          content: this.content,
+          sid: this.sid,
+          code: this.code,
+        }).then((res) => {
+          if (res.code === 10000) {
+            this.$pop(res.message)
+            const userInfo = this.$store.state.userInfo
+            const user = {
+              name: userInfo.name,
+              pic: userInfo.pic,
+              isVip: userInfo.isVip,
+              _id: userInfo._id,
+            }
+            res.data.user = user
+            delete res.data.uid
+            if (this.current !== 1) {
+              this.current = 1
+              this.page = 0
+              this._getComments()
+            } else if (this.total >= this.limit) {
+              this.comments.unshift(res.data)
+              this.comments.pop()
+            } else {
+              this.comments.unshift(res.data)
+            }
+            scrollToElem('.post-comment', 500, 0)
+            this.initEditor()
+          } else if (res.code === 9000) {
+            this.$refs.codefield.setErrors([res.message])
+          } else {
+            this.$alert(res.message)
+          }
+        })
+      }
+    },
+    // _getComments() {
+    //   return getComments({
+    //     tid: this.tid,
+    //     page: this.page,
+    //     limit: this.limit,
+    //   }).then((res) => {
+    //     if (res.code === 10000) {
+    //       this.comments = res.data.list
+    //       this.total = res.data.total
+    //     } else {
+    //       this.$alert(res.message)
+    //     }
+    //   })
+    // },
+    async handleChange(pageNumber) {
+      this.current = pageNumber
+      this.page = pageNumber - 1
+      await this._getComments()
+      scrollToElem('.post-comment', 500, 0)
+    },
+    editComment(cid, content) {
+      this.content = content
+      scrollToElem('.layui-input-block', 500, 0)
+      document.getElementById('edit').focus()
+      this.updateCid = cid
+    },
+    deleteComment() {},
+    bestComment(commentItem) {
+      this.$confirm('你确定要采纳该评论为最佳答案吗？', () => {
+        setBest({
+          cid: commentItem._id,
+          tid: commentItem.tid,
+        }).then((res) => {
+          if (res.code === 10000) {
+            this.$pop(res.message)
+            this.postInfo.isEnd = '1'
+            commentItem.isBest = '1'
+          } else {
+            this.$alert(res.message)
+          }
+        })
+      })
+    },
+    handsComment(comment) {
+      if (this.userInfo) {
+        setHands({
+          cid: comment._id,
+        }).then((res) => {
+          if (res.code === 10000) {
+            if (comment.isHands === '1') {
+              comment.isHands = '0'
+              comment.hands--
+            } else {
+              comment.isHands = '1'
+              comment.hands++
+            }
+          } else {
+            this.$alert(res.message)
+          }
+        })
+      } else {
+        this.$pop('请先登录', 'shake')
+      }
+    },
+    setCollectPost() {
+      if (!this.userInfo) {
+        this.$pop('请先登录', 'shake')
+        return
+      }
+      collectPost(this.postInfo._id).then((res) => {
+        if (res.code === 10000) {
+          this.postInfo.isCollect = this.postInfo.isCollect === '1' ? '0' : '1'
+        } else {
+          this.$alert(res.message)
+        }
+      })
+    },
+    cancelUpdate() {
+      this.updateCid = ''
+      this.initComment()
+    },
+    initEditor() {
+      this.code = ''
+      this.content = ''
+      requestAnimationFrame(() => {
+        this.$refs.observer && this.$refs.observer.reset()
+      })
+    },
+    isNormal() {
+      if (this.userInfo.status === '1') {
+        this.$pop('该用户已被禁言', 'shake')
+        return false
+      } else if (this.userInfo.status === '2') {
+        this.$pop('该用户已被冻结', 'shake')
+        return false
+      }
+      return true
+    },
+  },
   mounted() {
     const options = {
       tid: this.tid,

@@ -1,6 +1,6 @@
 <template>
   <transition name="face">
-    <div class="insert-link ui-pancl" v-show="isShow">
+    <div v-show="isShow" class="insert-link ui-pancl">
       <div class="title">插入引用内容片段</div>
       <div class="content">
         <form class="layui-form layui-form-pane upload">
@@ -8,8 +8,8 @@
             <div class="layui-form-item layui-form-text image-link">
               <div class="layui-input-block">
                 <textarea
-                  name="desc"
                   v-model="content"
+                  name="desc"
                   placeholder="请输入引用内容"
                   class="layui-textarea"
                 ></textarea>
@@ -36,8 +36,13 @@
 
 <script>
 export default {
-  name: 'quote',
-  props: ['isShow'],
+  name: 'Quote',
+   props: {
+    isShow: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       content: '',
@@ -56,7 +61,6 @@ export default {
       this.$emit('closeEvent')
     },
   },
-  mounted() {},
 }
 </script>
 

@@ -87,10 +87,10 @@
 </template>
 
 <script>
-import code from '~/plugins/code'
+import code from '~/mixins/code'
 
 export default {
-  name: 'login',
+  name: 'Login',
   mixins: [code],
   data() {
     return {
@@ -98,7 +98,6 @@ export default {
       password: '',
     }
   },
-  components: {},
   methods: {
     submit() {
       // const isValid = await this.$refs.observer.validate()

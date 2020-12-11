@@ -1,8 +1,7 @@
-import Vue from 'vue'
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import uuid from 'uuid/v4'
 
-const code = {
+export default {
   components: {
     ValidationProvider,
     ValidationObserver,
@@ -31,7 +30,3 @@ const code = {
     },
   },
 }
-
-Vue.mixin(code)
-
-export default code

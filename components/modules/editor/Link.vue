@@ -1,6 +1,6 @@
 <template>
   <transition name="face">
-    <div class="insert-link ui-pancl" v-show="isShow">
+    <div v-show="isShow" class="insert-link ui-pancl">
       <div class="title">插入外部链接</div>
       <div class="content">
         <form class="layui-form layui-form-pane upload">
@@ -10,8 +10,8 @@
               <div class="layui-input-block">
                 <input
                   type="text"
-                  name="link"
                   v-model="linkName"
+                  name="link"
                   placeholder="请输入链接标题"
                   autocomplete="off"
                   class="layui-input"
@@ -23,8 +23,8 @@
               <div class="layui-input-block">
                 <input
                   type="text"
-                  name="link"
                   v-model="link"
+                  name="link"
                   placeholder="请输入合法的链接"
                   autocomplete="off"
                   class="layui-input"
@@ -53,8 +53,13 @@
 
 <script>
 export default {
-  name: 'insertLink',
-  props: ['isShow'],
+  name: 'InsertLink',
+  props: {
+    isShow: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       link: '',
@@ -75,7 +80,6 @@ export default {
       this.$emit('closeEvent')
     },
   },
-  mounted() {},
 }
 </script>
 

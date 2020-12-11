@@ -1,6 +1,6 @@
 <template>
   <transition name="face">
-    <div class="preview ui-pancl" v-show="isShow">
+    <div v-show="isShow" class="preview ui-pancl">
       <div class="title">
         <p>预览</p>
         <span @click="cancel()"
@@ -8,7 +8,7 @@
         ></span>
       </div>
       <div class="content">
-        <div class="escape-html" v-html="replaceContent"></div>
+        <div v-html="replaceContent" class="escape-html"></div>
       </div>
     </div>
   </transition>
@@ -18,23 +18,28 @@
 import { escapeHtml } from '@/utils/escapeHtml'
 
 export default {
-  name: 'preview',
-  props: ['isShow', 'content'],
+  name: 'Preview',
+  props: {
+    isShow: {
+      type: Boolean,
+      default: false,
+    },
+    content: {
+      type: String,
+      default: '',
+    }
+  },
   computed: {
     replaceContent() {
       if (!this.content) return
       return escapeHtml(this.content)
     },
   },
-  data() {
-    return {}
-  },
   methods: {
     cancel() {
       this.$emit('closeEvent')
     },
   },
-  mounted() {},
 }
 </script>
 
