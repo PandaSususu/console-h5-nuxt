@@ -7,13 +7,26 @@
           <div>
             <div class="layui-form-item layui-form-text image-link">
               <div class="layui-input-block">
-                <textarea name="desc" v-model="content" placeholder="请输入引用内容" class="layui-textarea"></textarea>
+                <textarea
+                  name="desc"
+                  v-model="content"
+                  placeholder="请输入引用内容"
+                  class="layui-textarea"
+                ></textarea>
               </div>
             </div>
           </div>
           <div>
-            <button class="layui-btn layui-btn-primary" type="button" @click="cancel()">取消</button>
-            <button class="layui-btn" type="button" @click="submit()">确定</button>
+            <button
+              class="layui-btn layui-btn-primary"
+              type="button"
+              @click="cancel()"
+            >
+              取消
+            </button>
+            <button class="layui-btn" type="button" @click="submit()">
+              确定
+            </button>
           </div>
         </form>
       </div>
@@ -27,7 +40,7 @@ export default {
   props: ['isShow'],
   data() {
     return {
-      content: ''
+      content: '',
     }
   },
   methods: {
@@ -41,9 +54,9 @@ export default {
     },
     cancel() {
       this.$emit('closeEvent')
-    }
+    },
   },
-  mounted() {}
+  mounted() {},
 }
 </script>
 

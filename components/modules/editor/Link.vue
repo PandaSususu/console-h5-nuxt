@@ -8,20 +8,42 @@
             <div class="layui-form-item image-link">
               <label class="layui-form-label">链接标题</label>
               <div class="layui-input-block">
-                <input type="text" name="link" v-model="linkName" placeholder="请输入链接标题" autocomplete="off" class="layui-input" />
+                <input
+                  type="text"
+                  name="link"
+                  v-model="linkName"
+                  placeholder="请输入链接标题"
+                  autocomplete="off"
+                  class="layui-input"
+                />
               </div>
             </div>
             <div class="layui-form-item image-link">
               <label class="layui-form-label">链接地址</label>
               <div class="layui-input-block">
-                <input type="text" name="link" v-model="link" placeholder="请输入合法的链接" autocomplete="off" class="layui-input" />
+                <input
+                  type="text"
+                  name="link"
+                  v-model="link"
+                  placeholder="请输入合法的链接"
+                  autocomplete="off"
+                  class="layui-input"
+                />
               </div>
             </div>
             <p class="tips">如果不输入链接标题，则把链接地址作为链接标题</p>
           </div>
           <div>
-            <button class="layui-btn layui-btn-primary" type="button" @click="cancel()">取消</button>
-            <button class="layui-btn" type="button" @click="submit()">确定</button>
+            <button
+              class="layui-btn layui-btn-primary"
+              type="button"
+              @click="cancel()"
+            >
+              取消
+            </button>
+            <button class="layui-btn" type="button" @click="submit()">
+              确定
+            </button>
           </div>
         </form>
       </div>
@@ -36,7 +58,7 @@ export default {
   data() {
     return {
       link: '',
-      linkName: ''
+      linkName: '',
     }
   },
   methods: {
@@ -51,9 +73,9 @@ export default {
     },
     cancel() {
       this.$emit('closeEvent')
-    }
+    },
   },
-  mounted() {}
+  mounted() {},
 }
 </script>
 

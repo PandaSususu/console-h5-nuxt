@@ -1,19 +1,32 @@
 <template>
   <transition name="face">
-    <div class="insert-link ui-pancl" v-show="isShow">
+    <div v-show="isShow" class="insert-link ui-pancl">
       <div class="title">插入代码或任意文本片段</div>
       <div class="content">
         <form class="layui-form layui-form-pane upload">
           <div>
             <div class="layui-form-item layui-form-text image-link">
               <div class="layui-input-block">
-                <textarea name="desc" v-model="content" placeholder="请插入代码片段" class="layui-textarea"></textarea>
+                <textarea
+                  v-model="content"
+                  name="desc"
+                  placeholder="请插入代码片段"
+                  class="layui-textarea"
+                ></textarea>
               </div>
             </div>
           </div>
           <div>
-            <button class="layui-btn layui-btn-primary" type="button" @click="cancel()">取消</button>
-            <button class="layui-btn" type="button" @click="submit()">确定</button>
+            <button
+              class="layui-btn layui-btn-primary"
+              type="button"
+              @click="cancel()"
+            >
+              取消
+            </button>
+            <button class="layui-btn" type="button" @click="submit()">
+              确定
+            </button>
           </div>
         </form>
       </div>
@@ -23,11 +36,16 @@
 
 <script>
 export default {
-  name: 'quote',
-  props: ['isShow'],
+  name: 'Code',
+  props: {
+    isShow: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
-      content: ''
+      content: '',
     }
   },
   methods: {
@@ -41,9 +59,8 @@ export default {
     },
     cancel() {
       this.$emit('closeEvent')
-    }
+    },
   },
-  mounted() {}
 }
 </script>
 

@@ -2,16 +2,16 @@
   <div class="panel">
     <div class="layui-container">
       <ul class="layui-clear">
-        <router-link
+        <nuxt-link
           v-for="(item, index) in navList"
           :key="'nav' + index"
           tag="li"
           :to="item.path"
         >
           <a href="#">{{ item.name }}</a>
-        </router-link>
-        <li class="layui-hide-xs"><span class="line"></span></li>
+        </nuxt-link>
         <template v-if="isLogin">
+          <li class="layui-hide-xs"><span class="line"></span></li>
           <li class="layui-hide-xs"><a href="">我发表的帖</a></li>
           <li class="layui-hide-xs"><a href="">我收藏的帖</a></li>
         </template>
@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: 'panel',
+  name: 'Panel',
   data() {
     return {
       navList: [
@@ -38,27 +38,27 @@ export default {
         },
         {
           name: '提问',
-          path: '/index/ask',
+          path: '/home/ask',
         },
         {
           name: '分享',
-          path: '/index/share',
+          path: '/home/share',
         },
         {
           name: '讨论',
-          path: '/index/discuss',
+          path: '/home/discuss',
         },
         {
           name: '建议',
-          path: '/index/advise',
+          path: '/home/advise',
         },
         {
           name: '公告',
-          path: '/index/notice',
+          path: '/home/notice',
         },
         {
           name: '动态',
-          path: '/index/logs',
+          path: '/home/logs',
         },
       ],
       isLogin: this.$store.state.isLogin,

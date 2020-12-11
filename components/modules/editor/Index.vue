@@ -12,28 +12,56 @@
           <span @click="choose('link')">
             <i class="layui-icon layui-icon-link"></i>
           </span>
-          <span @click="choose('quote')">
-            ”
-          </span>
+          <span @click="choose('quote')"> ” </span>
           <span @click="choose('code')">
             <i class="layui-icon layui-icon-fonts-code"></i>
           </span>
-          <span @click="lineBreak()">
-            hr
-          </span>
+          <span @click="lineBreak()"> hr </span>
           <span @click="choose('preview')">
             <i class="layui-icon layui-icon-chart-screen"></i>
           </span>
         </div>
-        <textarea name="conetent" v-model="content" id="edit" ref="edit" class="layui-textarea" @focus="focusEvent()" @blur="blurEvent()"></textarea>
+        <textarea
+          id="edit"
+          ref="edit"
+          v-model="content"
+          name="conetent"
+          class="layui-textarea"
+          @focus="focusEvent()"
+          @blur="blurEvent()"
+        ></textarea>
       </div>
     </div>
-    <ui-face :isShow="currentShow === 'face'" @addEvent="handleFace" @closeEvent="close()"></ui-face>
-    <ui-image :isShow="currentShow === 'image'" @addEvent="handleImage" @closeEvent="close()"></ui-image>
-    <ui-link :isShow="currentShow === 'link'" @addEvent="handleLink" @closeEvent="close()"></ui-link>
-    <ui-quote :isShow="currentShow === 'quote'" @addEvent="handleQuote" @closeEvent="close()"></ui-quote>
-    <ui-code :isShow="currentShow === 'code'" @addEvent="handleCode" @closeEvent="close()"></ui-code>
-    <ui-preview :isShow="currentShow === 'preview'" :content="content" @closeEvent="close()"></ui-preview>
+    <ui-face
+      :is-show="currentShow === 'face'"
+      @addEvent="handleFace"
+      @closeEvent="close()"
+    ></ui-face>
+    <ui-image
+      :is-show="currentShow === 'image'"
+      @addEvent="handleImage"
+      @closeEvent="close()"
+    ></ui-image>
+    <ui-link
+      :is-show="currentShow === 'link'"
+      @addEvent="handleLink"
+      @closeEvent="close()"
+    ></ui-link>
+    <ui-quote
+      :is-show="currentShow === 'quote'"
+      @addEvent="handleQuote"
+      @closeEvent="close()"
+    ></ui-quote>
+    <ui-code
+      :is-show="currentShow === 'code'"
+      @addEvent="handleCode"
+      @closeEvent="close()"
+    ></ui-code>
+    <ui-preview
+      :is-show="currentShow === 'preview'"
+      :content="content"
+      @closeEvent="close()"
+    ></ui-preview>
   </div>
 </template>
 
@@ -46,13 +74,26 @@ import Code from './Code'
 import Preview from './Preview'
 
 export default {
-  name: 'editor',
-  props: ['initContent'],
+  name: 'Editor',
+  components: {
+    'ui-face': Face,
+    'ui-image': Image,
+    'ui-link': Link,
+    'ui-quote': Quote,
+    'ui-code': Code,
+    'ui-preview': Preview,
+  },
+  props: {
+    initContent: {
+      type: String,
+      defalut: () => '',
+    },
+  },
   data() {
     return {
       content: '',
       cursor: 0,
-      currentShow: ''
+      currentShow: '',
     }
   },
   watch: {
@@ -60,15 +101,7 @@ export default {
       if (this.content !== newVal) {
         this.content = newVal
       }
-    }
-  },
-  components: {
-    'ui-face': Face,
-    'ui-image': Image,
-    'ui-link': Link,
-    'ui-quote': Quote,
-    'ui-code': Code,
-    'ui-preview': Preview
+    },
   },
   updated() {
     this.$emit('changeContent', this.content)
@@ -81,7 +114,11 @@ export default {
       this.insert(`图片[${url}] `)
     },
     handleLink(linkObj) {
-      this.insert(`链接(${linkObj.link})[${linkObj.linkName ? linkObj.linkName : linkObj.link}] `)
+      this.insert(
+        `链接(${linkObj.link})[${
+          linkObj.linkName ? linkObj.linkName : linkObj.link
+        }] `
+      )
     },
     handleQuote(content) {
       this.insert(`\n[引用]\n${content}\n[/引用]\n`)
@@ -123,8 +160,8 @@ export default {
     getCursor() {
       const element = this.$refs.edit
       this.cursor = element.selectionStart
-    }
-  }
+    },
+  },
 }
 </script>
 

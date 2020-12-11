@@ -60,12 +60,7 @@
 
 <script>
 export default {
-  name: 'bottom-footer',
-  data() {
-    return {}
-  },
-  methods: {},
-  mounted() {},
+  name: 'BottomFooter',
 }
 </script>
 <style lang="scss" scoped>

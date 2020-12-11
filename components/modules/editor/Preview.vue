@@ -3,7 +3,9 @@
     <div class="preview ui-pancl" v-show="isShow">
       <div class="title">
         <p>预览</p>
-        <span @click="cancel()"><i class="layui-icon layui-icon-close"></i></span>
+        <span @click="cancel()"
+          ><i class="layui-icon layui-icon-close"></i
+        ></span>
       </div>
       <div class="content">
         <div class="escape-html" v-html="replaceContent"></div>
@@ -22,7 +24,7 @@ export default {
     replaceContent() {
       if (!this.content) return
       return escapeHtml(this.content)
-    }
+    },
   },
   data() {
     return {}
@@ -30,9 +32,9 @@ export default {
   methods: {
     cancel() {
       this.$emit('closeEvent')
-    }
+    },
   },
-  mounted() {}
+  mounted() {},
 }
 </script>
 

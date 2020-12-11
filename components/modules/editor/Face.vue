@@ -1,8 +1,12 @@
 <template>
   <transition name="face">
-    <div class="faces" v-show="isShow">
+    <div v-show="isShow" class="faces">
       <ul class="layui-clear">
-        <li v-for="(value, key) in faces" :key="key" @click="handleFaceClick(key)">
+        <li
+          v-for="(value, key) in faces"
+          :key="key"
+          @click="handleFaceClick(key)"
+        >
           <img :src="value" alt="" />
         </li>
       </ul>
@@ -11,22 +15,26 @@
 </template>
 
 <script>
-import faces from '@/assets/js/face'
+import faces from '~/assets/js/face'
 
 export default {
-  name: 'face',
-  props: ['isShow'],
+  name: 'Face',
+  props: {
+    isShow: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
-      faces: faces
+      faces,
     }
   },
   methods: {
     handleFaceClick(item) {
       this.$emit('addEvent', item)
-    }
+    },
   },
-  mounted() {}
 }
 </script>
 

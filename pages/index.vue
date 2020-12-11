@@ -44,7 +44,6 @@ export default {
     const hotsResult = await $axios.$get('/public/topWeek')
     const linksResult = await $axios.$get('/public/links')
     const topsResult = await $axios.$get('/public/topList')
-    console.log(tipsResult.data)
     return {
       tipsList: tipsResult.data,
       hotList: hotsResult.data,

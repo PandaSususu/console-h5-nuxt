@@ -48,7 +48,7 @@ import SignExplain from './common/SignExplain'
 import SignList from './common/SignList'
 
 export default {
-  name: 'sign',
+  name: 'Sign',
   components: {
     'ui-signExplain': SignExplain,
     'ui-signList': SignList,

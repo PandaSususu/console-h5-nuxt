@@ -1,6 +1,6 @@
 <template>
   <transition name="face">
-    <div class="upload-image ui-pancl" v-show="isShow">
+    <div v-show="isShow" class="upload-image ui-pancl">
       <div class="title">插入图片</div>
       <div class="content">
         <form class="layui-form layui-form-pane upload">
@@ -8,17 +8,41 @@
             <div class="layui-form-item image-link">
               <label class="layui-form-label">链接</label>
               <div class="layui-input-block">
-                <input type="text" name="link" v-model="imageUrl" placeholder="请输入图片链接" autocomplete="off" class="layui-input" />
+                <input
+                  v-model="imageUrl"
+                  type="text"
+                  name="link"
+                  placeholder="请输入图片链接"
+                  autocomplete="off"
+                  class="layui-input"
+                />
               </div>
             </div>
             <label for="uploadImage">
-              <i class="layui-icon layui-btn layui-btn-primary">&#xe67c;本地图片</i>
-              <input type="file" name="uploadImage" id="uploadImage" class="file-input" accept="image/png, image/jpg, image/gif" @change="upload" />
+              <i class="layui-icon layui-btn layui-btn-primary"
+                >&#xe67c;本地图片</i
+              >
+              <input
+                id="uploadImage"
+                type="file"
+                name="uploadImage"
+                class="file-input"
+                accept="image/png, image/jpg, image/gif"
+                @change="upload"
+              />
             </label>
           </div>
           <div>
-            <button class="layui-btn layui-btn-primary" type="button" @click="cancel()">取消</button>
-            <button class="layui-btn" type="button" @click="submit()">确定</button>
+            <button
+              class="layui-btn layui-btn-primary"
+              type="button"
+              @click="cancel()"
+            >
+              取消
+            </button>
+            <button class="layui-btn" type="button" @click="submit()">
+              确定
+            </button>
           </div>
         </form>
       </div>
@@ -27,16 +51,18 @@
 </template>
 
 <script>
-import { uploadImage } from '@/api/content'
-import config from '@/config'
-
 export default {
-  name: 'uploadImage',
-  props: ['isShow'],
+  name: 'UploadImage',
+  props: {
+    isShow: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       formData: '',
-      imageUrl: ''
+      imageUrl: '',
     }
   },
   methods: {
@@ -47,11 +73,11 @@ export default {
         formData.append('file', files[0])
         this.formData = formData
       }
-      uploadImage(this.formData).then((res) => {
-        if (res.code === 10000) {
-          this.imageUrl = config.baseUrl + res.data.path
-        }
-      })
+      // uploadImage(this.formData).then((res) => {
+      //   if (res.code === 10000) {
+      //     this.imageUrl = config.baseUrl + res.data.path
+      //   }
+      // })
     },
     cancel() {
       this.$emit('closeEvent')
@@ -63,9 +89,8 @@ export default {
       }
       this.$emit('addEvent', this.imageUrl)
       this.imageUrl = ''
-    }
+    },
   },
-  mounted() {}
 }
 </script>
 

@@ -14,7 +14,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [],
+  plugins: ['~/plugins/filters', '~/plugins/directives', '~/plugins/code', '~/plugins/veevalidate'],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -26,19 +26,27 @@ export default {
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: ['@nuxtjs/axios'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/auth'],
   axios: {
     baseURL: 'http://localhost:3000',
   },
-  render: {
-    bundleRenderer: {
-      filters: {
-        formatDate: (val) => {
-          if (moment(val).isBefore(moment().subtract(7, 'days'))) {
-            return moment(val).format('YYYY-MM-DD')
-          } else {
-            return moment(val).from(moment())
-          }
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/login/login',
+            method: 'post',
+            propertyName: 'data.token'
+          },
+          // logout: {
+          //   url: '/api/auth/logout', method: 'post'
+          // },
+          user: {
+            url: '/user/info',
+            method: 'get',
+            propertyName: 'data'
+          },
         },
       },
     },

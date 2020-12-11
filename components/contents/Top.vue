@@ -4,8 +4,8 @@
       <h3 class="title">置顶</h3>
       <vue-listitem
         :lists="lists"
+        :is-end="isEnd_"
         @loadMore="loadMore()"
-        :isEnd="isEnd_"
       ></vue-listitem>
     </div>
   </div>
@@ -19,30 +19,28 @@ export default {
   components: {
     'vue-listitem': ListItem,
   },
-  props: ['lists'],
+  props: {
+    lists: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data() {
     return {
-      lists_: [],
       isEnd_: false,
       isLoad: false,
     }
   },
   methods: {
-    _getList() {
+    async _getList() {
       this.isLoad = true
-      // getTopList()
-      //   .then((res) => {
-      //     this.isLoad = false
-      //     if (res.code === 10000) {
-      //       this.lists_ = res.data
-      //     } else {
-      //       this.$pop(res.message)
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     this.$alert(error)
-      //     this.isLoad = false
-      //   })
+      const res = await this.$axios.$get('/public/topList')
+      this.isLoad = false
+      if (res.code === 10000) {
+        this.lists = res.data
+      } else {
+        this.$pop(res.message)
+      }
     },
     loadMore() {
       if (this.isLoad) return

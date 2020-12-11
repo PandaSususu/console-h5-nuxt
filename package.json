@@ -19,11 +19,16 @@
     }
   },
   "dependencies": {
+    "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.12.3",
     "core-js": "^3.6.5",
-    "dayjs": "^1.9.7",
+    "dayjs": "^1.9.3",
+    "moment": "^2.29.1",
     "nuxt": "^2.14.6",
-    "vue": "^2.6.12"
+    "uuid": "^3.3.3",
+    "vue": "^2.6.12",
+    "qs": "^6.9.4",
+    "vee-validate": "^3.4.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.1.0",

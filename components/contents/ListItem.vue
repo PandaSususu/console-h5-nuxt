@@ -2,11 +2,11 @@
   <div>
     <ul>
       <li
-        class="list-item cursor"
         v-for="(item, index) in items"
         :key="'list' + index"
+        class="list-item cursor"
       >
-        <div class="pic" v-if="item.user" @click="detail(item._id)">
+        <div v-if="item.user" class="pic" @click="detail(item._id)">
           <img :src="item.user.pic" alt="" />
         </div>
         <div class="content">
@@ -17,7 +17,7 @@
             </p>
             <div class="tags">
               <p>{{ item.user ? item.user.name : '' }}</p>
-              <p class="user" v-if="item.user && item.user.isVip !== '0'">
+              <p v-if="item.user && item.user.isVip !== '0'" class="user">
                 <span
                   ><svg
                     t="1601396379570"
@@ -68,10 +68,10 @@
           <div class="label">
             <p class="labs">
               <span
-                class="layui-badge"
-                v-for="(label, index) in item.tags"
-                :key="'lable' + index"
+                v-for="(label, tindex) in item.tags"
+                :key="'lable' + tindex"
                 :class="label.class"
+                class="layui-badge"
                 >{{ label.name }}</span
               >
             </p>
@@ -83,8 +83,8 @@
         </div>
       </li>
     </ul>
-    <div class="more" v-if="items.length > 19">
-      <button class="layui-btn" @click="loadMore()" v-if="!isEnd">
+    <div v-if="items.length > 19" class="more">
+      <button v-if="!isEnd" class="layui-btn" @click="loadMore()">
         加载更多
       </button>
       <p v-else>这就是我的底线...</p>
@@ -105,11 +105,6 @@ export default {
       default: false,
     },
   },
-  computed: {
-    items() {
-      return this.lists
-    },
-  },
   data() {
     return {
       catalogs: {
@@ -122,6 +117,11 @@ export default {
         notice: '公告',
       },
     }
+  },
+  computed: {
+    items() {
+      return this.lists
+    },
   },
   methods: {
     loadMore() {

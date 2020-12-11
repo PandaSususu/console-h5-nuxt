@@ -1,6 +1,6 @@
 <template>
   <ul class="layui-nav">
-    <li class="layui-nav-item"><router-link to="/">首页</router-link></li>
+    <li class="layui-nav-item"><nuxt-link to="/">首页</nuxt-link></li>
     <li class="layui-nav-item"><a href="">产品</a></li>
     <li class="layui-nav-item"><a href="">大数据</a></li>
     <li class="layui-nav-item">
@@ -15,12 +15,12 @@
     <li class="layui-nav-item">
       <a href="">控制台<span class="layui-badge">9</span></a>
     </li>
-    <template v-if="!isShow">
+    <template v-if="$auth.isLoginIn">
       <li class="layui-nav-item float-right">
         <router-link :to="{ name: 'reg' }">注册</router-link>
       </li>
       <li class="layui-nav-item float-right">
-        <router-link :to="{ name: 'login' }">登录</router-link>
+        <nuxt-link to="/login">登录</nuxt-link>
       </li>
     </template>
     <template v-else>
@@ -47,10 +47,7 @@
 
 <script>
 export default {
-  name: 'top-header',
-  data() {
-    return {}
-  },
+  name: 'TopHeader',
   computed: {
     isShow() {
       return this.$store.state.isLogin
@@ -84,7 +81,6 @@ export default {
       })
     },
   },
-  mounted() {},
 }
 </script>
 <style lang="scss" scoped>

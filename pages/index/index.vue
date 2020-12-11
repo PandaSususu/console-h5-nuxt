@@ -72,7 +72,6 @@ export default {
   },
   data() {
     return {
-      lists_: [],
       isTop: '0',
       page: 0,
       limit: 20,
@@ -84,17 +83,7 @@ export default {
       isLoad: false,
     }
   },
-  computed: {},
-  watch: {
-    $route(newval, oldval) {
-      this.catalog = newval.params.catalog
-      this.init()
-      this._getList()
-    },
-  },
   async asyncData({ $axios }) {
-    // this.catalog = this.$route.params.catalog ? this.$route.params.catalog : ''
-    // this._getList($axios)
     const options = {
       isTop: '0',
       page: 0,
@@ -112,35 +101,28 @@ export default {
     }
   },
   methods: {
-    _getList() {
+    async _getList() {
       this.isLoad = true
-      // const options = {
-      //   isTop: this.isTop,
-      //   page: this.page,
-      //   limit: this.limit,
-      //   catalog: this.catalog,
-      //   sort: this.sort,
-      //   isEnd: this.isEnd,
-      //   tag: this.tag,
-      // }
-      // getList(options)
-      //   .then((res) => {
-      //     this.isLoad = false
-      //     if (res.code === 10000) {
-      //       if (!this.lists_.length) {
-      //         this.lists_ = res.data
-      //       } else {
-      //         this.lists_ = this.lists_.concat(res.data)
-      //         if (res.data.length < this.limit) {
-      //           this.notMore = true
-      //         }
-      //       }
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     this.$alert(error.message)
-      //     this.isLoad = false
-      //   })
+      const options = {
+        isTop: this.isTop,
+        page: this.page,
+        limit: this.limit,
+        catalog: this.catalog,
+        sort: this.sort,
+        isEnd: this.isEnd,
+        tag: this.tag,
+      }
+      const res = await this.$axios.$get(
+        '/public/list?' + qs.stringify(options)
+      )
+      if (!this.lists.length) {
+        this.lists = res.data
+      } else {
+        this.lists = this.lists.concat(res.data)
+        if (res.data.length < this.limit) {
+          this.notMore = true
+        }
+      }
     },
     loadMore() {
       if (this.isLoad) return
@@ -151,14 +133,14 @@ export default {
       if (this.sort === val) return
       if (this.isEnd === val) {
         this.isEnd = ''
-        this.lists_ = []
+        this.lists = []
         this.page = 0
         this._getList()
         return
       }
       if (this.tag === val) {
         this.tag = ''
-        this.lists_ = []
+        this.lists = []
         this.page = 0
         this._getList()
         return
@@ -177,12 +159,12 @@ export default {
         case 'sort':
           this.sort = val
       }
-      this.lists_ = []
+      this.lists = []
       this.page = 0
       this._getList()
     },
     init() {
-      this.lists_ = []
+      this.lists = []
       this.notMore = false
     },
   },
@@ -190,13 +172,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.tag {
-  display: inline-block;
-  font-size: 12px;
-  padding: 1px 2px;
-  border-radius: 4px;
-}
-
 .nav {
   border-bottom: 1px solid #f2f2f2;
   display: flex;
