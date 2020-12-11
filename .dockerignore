@@ -21,3 +21,14 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+assets
+component
+layouts
+middleware
+minxs
+pages
+plugins
+static
+store
+utils
