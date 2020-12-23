@@ -15,7 +15,7 @@
     <li class="layui-nav-item">
       <a href="">控制台<span class="layui-badge">9</span></a>
     </li>
-    <template v-if="$auth.isLoginIn">
+    <template v-if="!$auth.loggedIn">
       <li class="layui-nav-item float-right">
         <router-link :to="{ name: 'reg' }">注册</router-link>
       </li>

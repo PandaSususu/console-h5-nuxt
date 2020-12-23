@@ -11,6 +11,9 @@ import Header from '~/components/Header'
 import Footer from '~/components/Footer'
 
 export default {
+  created() {
+    console.log(this.$auth.loggedIn)
+  },
   components: {
     'vue-header': Header,
     'vue-footer': Footer,

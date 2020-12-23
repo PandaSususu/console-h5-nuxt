@@ -118,7 +118,7 @@ export default {
           if (res.data.code === 10000) {
             alert('登陆成功')
           } else {
-            alert(res.message)
+            alert(res.data.message)
           }
         })
       // login({
